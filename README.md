@@ -159,7 +159,7 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
 > - Make sure all mandatory variables in each query are populated (otherwise variable prompt shows up).
 > - Cached files are a frequent source of error and cannot be handled programmatically. Therefore, turn on deleting cached files.
 
-### Additional Settings
+## Additional Settings
 
 1. Load and use holiday file
     - Select and use a different Holiday.csv file
@@ -172,7 +172,7 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
 
 Please note that settings 2-4 potentially must be removed in future versions (encryption).
 
-### Create Executable
+## Create Executable
 
 For the creation of the executable pyinstaller has been used with the following command
 
