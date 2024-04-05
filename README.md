@@ -12,11 +12,12 @@ This project is based on the work of:
 
 ## Scope
 
-This tool was created to update BOA queries within existing Excel files, which can be used by any user without a Python installation. The parameters for these queries are stored in a singular configuration Excel file, enabling its use across multiple Excel files containing BOA queries.
+This tool was created to update AfO queries within existing Excel files, which can be used by any user without a Python installation. The parameters for these queries are stored in a singular configuration Excel file, enabling its use across multiple Excel files containing AfO queries. 
 
-The primary objective of this tool is to refresh BOA queries. While it offers the capability to execute VBS scripts and other executable files post-refresh, it lacks the functionality to run macros in Excel files, which have historically been prone to errors in VBA-based solutions.
+The primary objective of this tool is to refresh AfO queries. While it offers the capability to execute VBS scripts and other executable files post-refresh, running macros in Excel files is possible but the function has not been activated, as they have historically been prone to errors in VBA-based solutions.
 
-Users have the option to launch the tool by running the EXE file manually or scheduling it for automatic execution, such as through Windows Task Scheduler. When manually initiated, the tool presents a user interface, while in automatic mode, it operates silently in the background utilizing predefined settings.
+Users have the option to launch the tool by running the EXE file manually or scheduling it for automatic execution, such as through Windows Task Scheduler. When manually initiated, the tool presents a user interface (using tkinter), while in automatic mode, it operates silently in the background utilizing predefined settings.
+
 
 ## Tool Contents
 
@@ -104,8 +105,8 @@ Ensure you provide a path to the password files or credentials if you want to us
 
 #### Settings:
 - **Close Running Excel Instances:** Will close all other Excel files during initialization. If deactivated, there is still the possibility that Excel will be closed during the refresh. (Recommendation: Activated)
-- **Force Close BOA-Popups:** Will monitor for any pop-ups during query refresh. Pop-ups with the title “Messages” will be recognized as BOA Error messages and will be closed. The error messages will be logged. (Recommendation: Activated)
-- **Suppress All BOA Messages:** Will implement a temporary Macro in the Excel files, which triggers the Analysis Plugins “SuppressMessages” function. This is only necessary in special cases, as it is possible to hide non-critical messages in the BOA Analysis Plugin settings. (Recommendation: Deactivated)
+- **Force Close AfO-Popups:** Will monitor for any pop-ups during query refresh. Pop-ups with the title “Messages” will be recognized as AfO Error messages and will be closed. The error messages will be logged. (Recommendation: Activated)
+- **Suppress All AfO Messages:** Will implement a temporary Macro in the Excel files, which triggers the Analysis Plugins “SuppressMessages” function. This is only necessary in special cases, as it is possible to hide non-critical messages in the AfO Analysis Plugin settings. (Recommendation: Deactivated)
 - **Run Refresh All in Excel Files After Refresh:** Triggers a Refresh All action in the Excel file. After the Refresh All, there is a waiting time of 60 seconds, which can only be changed in the tool's source code. (Recommendation: Optional)
 - **Capture Query Runtimes:** Will capture the query runtime for initial refresh and refresh after submitting the variables in a CSV file. (Recommendation: Optional)
 - **Close Excel After Refresh:** Closes Excel after the refresh of all queries is completed, or errors occurred. (Recommendation: Activated)
@@ -126,8 +127,8 @@ The argument “Scheduled” (“arg0”) is a prerequisite to use any other arg
 Setting                                                     | Argument short             | Argument long               
 ------------------------------------------------------------|------------------------|--------------------------
 Scheduled                                                  | “arg0”                 | “scheduled”              
-Activate “Supress all BOA messages”                       | “arg1”                 | “supressboamessages”     
-Deactivate “Force close BOA-pop-ups”                      | “arg2”                 | “dontforcecloseboamessages” 
+Activate “Supress all AfO messages”                       | “arg1”                 | “supressboamessages”     
+Deactivate “Force close AfO-pop-ups”                      | “arg2”                 | “dontforcecloseboamessages” 
 Deactivate “Close running Excel instances”                 | “arg3”                 | “dontcloseexcel”         
 Deactivate “Close Excel after refresh”                    | “arg4”                 | “dontkillexcelaftercompletion” 
 Deactivate “Run Refresh all in Excel files after refresh” | “arg5”                 | “dontrefresh”            
@@ -154,7 +155,7 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
 > - Use clean files (No old and unused queries, queries without crosstab etc.)
 > - When the tool cannot open files it is possible that there are hyperlinks on the paths in the configuration file – remove those hyperlinks. Another reason is that you are using paths copied from your browser; this usually does not work, e.g., the filename must end with a valid file extension like .xlsx and not with any other parts from the URL.
 > - Errors 2147023174 “The RPC server is unavailable” & 2147023170 “The remote procedure call failed” no solution yet – usually works after a couple of minutes after the error.
-> - Although BOA messages can be hidden using an implemented macro it is safer to activate message suppression in the Analysis Addin settings. By default, it is set to suppress all messages – in case you adjusted this setting, think about setting it back to suppress messages.
+> - Although AfO messages can be hidden using an implemented macro it is safer to activate message suppression in the Analysis Addin settings. By default, it is set to suppress all messages – in case you adjusted this setting, think about setting it back to suppress messages.
 > - Multiple automations running in parallel (also VBA macros etc.) will likely cause errors – make sure only one is running at a time.
 > - Make sure all mandatory variables in each query are populated (otherwise variable prompt shows up).
 > - Cached files are a frequent source of error and cannot be handled programmatically. Therefore, turn on deleting cached files.
