@@ -35,14 +35,15 @@ If the tool is used to update queries automatically, user credentials must be pr
 ### d. Holiday File (optional)
 
 If queries need to be run on a specific working day, this file is necessary to correctly calculate working days (standard working days from Monday to Friday are considered - this can be changed in the EXE source code). It must be saved in the local user directory or the folder containing the EXE file for automated refresh.
-
-## Pre-requisites
-
-- Configuration File and EXE must be stored on a local path (Netdrive or own PC).
-- Ensure all other Excel files are closed (including not visible ones via Task Manager) and no other automations will run during tool usage. The tool may also close all other running Excel instances during a refresh.
-- Never click into the command window of the tool, as it can stop code execution. If execution stops, you can continue by pressing Enter.
-- Use clean and working files (No old and unused queries, queries without crosstab, no queries that have been deleted or are test queries. Result size should never exceed the limits).
-- If running the tool via Task Scheduler, follow instructions in section 6b/c for settings and 7b for scheduling a task.
+> [!IMPORTANT]
+> ## Pre-requisites
+>
+> - Review and adjust if required inital values and formats in the given code from line 96 onwards
+> - Configuration File and EXE must be stored on a localy (Netdrive or own PC).
+> - Ensure all other Excel files are closed (including not visible ones via Task Manager) and no other automations will run during tool usage. The tool may also close all other running Excel instances during a refresh.
+> - Never click into the command window of the tool, as it can stop code execution. If execution stops, you can continue by pressing Enter.
+> - Use clean and working files (No old and unused queries, queries without crosstab, no queries that have been deleted or are test queries. Result size should never exceed the limits).
+> - If running the tool via Task Scheduler, follow instructions in section 6b/c for settings and 7b for scheduling a task.
 
 ## Create Configuration
 
@@ -144,19 +145,19 @@ To use automated refresh with the task scheduler, the EXE file and the Configura
 ### b. Automated Refresh with Task Scheduler
 
 Select the EXE file as an action in the task scheduler, and add “Scheduled” as an argument; if you don't do this, it won't work as the initial pop-up will show up.
-
-### Possible / Known Sources of Errors:
-
-- Make sure all other Excel files are closed (also not visible ones via the Task Manager must be closed)
-- Analysis Addin doesn’t load – open File manually refresh a query and save file.
-- Never click into the command window of the tool, this will stop the code execution.
-- Use clean files (No old and unused queries, queries without crosstab etc.)
-- When the tool cannot open files it is possible that there are hyperlinks on the paths in the configuration file – remove those hyperlinks. Another reason is that you are using paths copied from your browser; this usually does not work, e.g., the filename must end with a valid file extension like .xlsx and not with any other parts from the URL.
-- Errors 2147023174 “The RPC server is unavailable” & 2147023170 “The remote procedure call failed” no solution yet – usually works after a couple of minutes after the error.
-- Although BOA messages can be hidden using an implemented macro it is safer to activate message suppression in the Analysis Addin settings. By default, it is set to suppress all messages – in case you adjusted this setting, think about setting it back to suppress messages.
-- Multiple automations running in parallel (also VBA macros etc.) will likely cause errors – make sure only one is running at a time.
-- Make sure all mandatory variables in each query are populated (otherwise variable prompt shows up).
-- Cached files are a frequent source of error and cannot be handled programmatically. Therefore, turn on deleting cached files.
+> [!CAUTION]
+> ### Possible / Known Sources of Errors:
+>
+> - Make sure all other Excel files are closed (also not visible ones via the Task Manager must be closed)
+> - Analysis Addin doesn’t load – open File manually refresh a query and save file.
+> - Never click into the command window of the tool, this will stop the code execution.
+> - Use clean files (No old and unused queries, queries without crosstab etc.)
+> - When the tool cannot open files it is possible that there are hyperlinks on the paths in the configuration file – remove those hyperlinks. Another reason is that you are using paths copied from your browser; this usually does not work, e.g., the filename must end with a valid file extension like .xlsx and not with any other parts from the URL.
+> - Errors 2147023174 “The RPC server is unavailable” & 2147023170 “The remote procedure call failed” no solution yet – usually works after a couple of minutes after the error.
+> - Although BOA messages can be hidden using an implemented macro it is safer to activate message suppression in the Analysis Addin settings. By default, it is set to suppress all messages – in case you adjusted this setting, think about setting it back to suppress messages.
+> - Multiple automations running in parallel (also VBA macros etc.) will likely cause errors – make sure only one is running at a time.
+> - Make sure all mandatory variables in each query are populated (otherwise variable prompt shows up).
+> - Cached files are a frequent source of error and cannot be handled programmatically. Therefore, turn on deleting cached files.
 
 ### Additional Settings
 
@@ -171,3 +172,10 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
 
 Please note that settings 2-4 potentially must be removed in future versions (encryption).
 
+### Create Executable
+
+For the creation of the executable pyinstaller has been used with the following command
+
+```
+pyinstaller --onefile SAP_AfO_Refresh.py
+```
