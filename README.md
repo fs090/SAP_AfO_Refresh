@@ -40,6 +40,7 @@ If queries need to be run on a specific working day, this file is necessary to c
 > ## Pre-requisites
 >
 > - Review and adjust if required inital values and formats in the given code from line 96 onwards
+> - Date format used is dd.mm.yyyy, change if required
 > - Configuration File and EXE must be stored on a localy (Netdrive or own PC).
 > - Ensure all other Excel files are closed (including not visible ones via Task Manager) and no other automations will run during tool usage. The tool may also close all other running Excel instances during a refresh.
 > - Never click into the command window of the tool, as it can stop code execution. If execution stops, you can continue by pressing Enter.
