@@ -57,13 +57,24 @@ There are three ways to create configuration files:
 
 ### a. For a Single Query File
 
+![Create_config_Single_Query_File](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/38821ac4-fb68-497b-a692-e279243c2b8e)
+
+
 ### b. For Multiple Files in a Folder
 
 Ensure that only files containing queries, and only those you want to refresh, are in the folder to prevent errors. Only Excel files will be considered. A configuration file can be in the same folder; if the filename contains *config*, it is excluded.
 
+
+![Create_config_Multiple_Query_File](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/bb9cf3d4-64f7-4889-86dc-16a213ef48f4)
+
+
+
 ### c. For Multiple Query Files Based on a Configuration File
 
 For this option, you need a configuration file. Enter "Filename", "Filepath", and "Fullpath" on Sheet "Files". Then, a configuration file for all files will be created in the folder where the EXE is located. It is also possible to use a file containing only file links; see the file "File_Input.xlsx" in this folder as an example.
+
+![Create_config_FromConfig_File](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/e5c45ebc-fe3e-4d25-b7de-ad70c8e0a6a2)
+
 
 Ensure you create and use the configuration file on the same PC (drives may be named differently, which may cause errors). At a later stage, it is also possible to copy content from two configuration files into a single file if necessary.
 
@@ -75,6 +86,9 @@ Each configuration file contains five sheets: "Variables_Filters", "Queries", "F
 
 Used to define variables and filters for all queries. Column "Command" specifies whether the command is related to a filter or a variable. The value to be used for the next refresh can be set in column "Value" (Excel Formulas can also be used). For time-dependent values, the column "Variable to use as Value" can be filled with a variable name from Sheet "Time Values"; if filled with a variable, the column "Value" will be overwritten.
 
+![Config_File_Variables_Filters](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/301878d2-8d46-400a-8942-044ce2ee89e0)
+
+
 ### b. Sheet "Queries"
 
 Defines if and when the queries should be refreshed. To determine whether a query should be refreshed or not, use column "Refresh on WD". Enter "99" if the query should always be refreshed, and enter a number of a working day if the query should only be refreshed on a certain working day. A query will only be refreshed if the current date matches the correct working day.
@@ -85,39 +99,44 @@ The column "Last refreshed" will contain the time and date of the last refresh a
 
 It is also possible to define if the query results should be saved as a CSV file after the refresh is completed. If a CSV is required, enter a path on your local machine in column "Save as CSV".
 
+![Config_File_Queries](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/582a3c18-fdb2-4739-995d-190c8ed2e4bb)
+
+
 ### c. Sheet "Files"
 
 Contains all files that must be refreshed.
 
+![Config_File_Files](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/c252be3b-062d-44ec-91ea-65dcbb4bbcda)
+
+
 ### d. Sheet "Settings"
 
-Refer to section 6b.
+Refer to section Tool Settings.
 
 ### e. Sheet "Time Values"
 
 The values on this sheet will be refreshed in the background before refreshing queries. Time format to be passed to queries is MM.DD.YYYY. As mentioned, the variable names from column "Variable" can be used on Sheet "Variables_Filters" in Column "Variable to use as Value". You can also use more variables in one cell, e.g., LM_MM_YYYY - LM_MM_YYYY.
 
+![Config_File_Time_Values](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/8612c382-fbcd-4fda-bd64-b42b6c15cb9f)
+
 
 ## Tool Settings
 
-Ensure you provide a path to the password files or credentials if you want to use automated refresh. Alternatively, you can place the password text file in the same folder as the EXE file or the local user directory, and it will be recognized automatically. See the last section for all additional settings.
+Ensure you provide a path to the password files or credentials if you want to use automated refresh. Alternatively, you can place the password text file in the same folder as the EXE file or the local user directory, and it will be recognized automatically. See the section c for all additional settings.
+
+
+
 
 ### a. Settings in the User Interface
 
-#### Settings:
-- **Close Running Excel Instances:** Will close all other Excel files during initialization. If deactivated, there is still the possibility that Excel will be closed during the refresh. (Recommendation: Activated)
-- **Force Close AfO-Popups:** Will monitor for any pop-ups during query refresh. Pop-ups with the title “Messages” will be recognized as AfO Error messages and will be closed. The error messages will be logged. (Recommendation: Activated)
-- **Suppress All AfO Messages:** Will implement a temporary Macro in the Excel files, which triggers the Analysis Plugins “SuppressMessages” function. This is only necessary in special cases, as it is possible to hide non-critical messages in the AfO Analysis Plugin settings. (Recommendation: Deactivated)
-- **Run Refresh All in Excel Files After Refresh:** Triggers a Refresh All action in the Excel file. After the Refresh All, there is a waiting time of 60 seconds, which can only be changed in the tool's source code. (Recommendation: Optional)
-- **Capture Query Runtimes:** Will capture the query runtime for initial refresh and refresh after submitting the variables in a CSV file. (Recommendation: Optional)
-- **Close Excel After Refresh:** Closes Excel after the refresh of all queries is completed, or errors occurred. (Recommendation: Activated)
-- **Restart Excel After Refresh Error:** If an error occurs during refreshing a query, this setting will, if activated, save the file and restart Excel. If deactivated, there will be one retry to refresh the query but without restarting Excel in the first place. (Recommendation: Deactivated)
-- **Save Query Results in CSV:** Will save each query as a CSV file. Make sure to set correct formats in the Excel files; the tool will read all values from the Excel as a string. (Recommendation: Optional)
-- **Always Refresh Queries with Errors During Refresh:** If a query failed to refresh, the column “Last refreshed” in the sheet “Queries” in the configuration file will contain “Error”. All these queries will be refreshed, regardless of any entry in the column “Refresh on WD” which usually steers if a query is to be refreshed or not. (Recommendation: Optional)
+![Interface_Settings](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/181c4005-58fe-4b67-85ed-4da80fe361bc)
+
 
 ### b. Settings in the Configuration File
 
 Every configuration file contains a sheet “Settings” on which basic settings as shown below can be defined.
+
+![Config_File_Settings](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/561313c3-a69d-4155-9dba-31a63be4cbdf)
 
 ### c. Settings via Program Arguments
 
@@ -138,15 +157,32 @@ Activate “Save Query results in CSV”                      | “arg7”      
 Activate “Always refresh queries with errors during refresh” | “arg8”              | “refresherrorqueries”    
 Activate “Restart Excel after Refresh Error”              | “arg9”                 | “restartexcelonerror”    
 
+- **Close Running Excel Instances:** Will close all other Excel files during initialization. If deactivated, there is still the possibility that Excel will be closed during the refresh. (Recommendation: Activated)
+- **Force Close AfO-Popups:** Will monitor for any pop-ups during query refresh. Pop-ups with the title “Messages” will be recognized as AfO Error messages and will be closed. The error messages will be logged. (Recommendation: Activated)
+- **Suppress All AfO Messages:** Will implement a temporary Macro in the Excel files, which triggers the Analysis Plugins “SuppressMessages” function. This is only necessary in special cases, as it is possible to hide non-critical messages in the AfO Analysis Plugin settings. (Recommendation: Deactivated)
+- **Run Refresh All in Excel Files After Refresh:** Triggers a Refresh All action in the Excel file. After the Refresh All, there is a waiting time of 60 seconds, which can only be changed in the tool's source code. (Recommendation: Optional)
+- **Capture Query Runtimes:** Will capture the query runtime for initial refresh and refresh after submitting the variables in a CSV file. (Recommendation: Optional)
+- **Close Excel After Refresh:** Closes Excel after the refresh of all queries is completed, or errors occurred. (Recommendation: Activated)
+- **Restart Excel After Refresh Error:** If an error occurs during refreshing a query, this setting will, if activated, save the file and restart Excel. If deactivated, there will be one retry to refresh the query but without restarting Excel in the first place. (Recommendation: Deactivated)
+- **Save Query Results in CSV:** Will save each query as a CSV file. Make sure to set correct formats in the Excel files; the tool will read all values from the Excel as a string. (Recommendation: Optional)
+- **Always Refresh Queries with Errors During Refresh:** If a query failed to refresh, the column “Last refreshed” in the sheet “Queries” in the configuration file will contain “Error”. All these queries will be refreshed, regardless of any entry in the column “Refresh on WD” which usually steers if a query is to be refreshed or not. (Recommendation: Optional)
+
 ## Refresh Queries
 
 To use automated refresh with the task scheduler, the EXE file and the Configuration File must be in the same folder on a local drive and not on SharePoint or any other Online Storage (Name of the configuration File has to start with Config* - make sure there is only one file like that, the first found file will be used).
 
 ### a. Refresh Manually via the Interface
 
+![Interface_Manual_Refresh](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/9c86eeb2-6fa0-41af-8f8c-0ac739eea147)
+
+
 ### b. Automated Refresh with Task Scheduler
 
-Select the EXE file as an action in the task scheduler, and add “Scheduled” as an argument; if you don't do this, it won't work as the initial pop-up will show up.
+Select the EXE file as an action in the task scheduler, and add “Scheduled” or "arg0" as an argument; if you don't do this, it won't work as the initial pop-up will show up.
+
+![Task_Scheduler_Scheduled](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/aee787c7-7910-4c6a-aec7-ec31029d6363)
+
+
 > [!CAUTION]
 > ### Possible / Known Sources of Errors:
 >
@@ -173,6 +209,9 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
     - Selected Encoded Password File will be used
 
 Please note that settings 2-4 potentially must be removed in future versions (encryption).
+
+![Interface_Settings](https://github.com/fs090/SAP_AfO_Refresh/assets/166128368/b79d0fd9-7767-4548-9fe4-c8733042a308)
+
 
 ## Create Executable
 
