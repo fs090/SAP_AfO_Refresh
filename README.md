@@ -189,6 +189,7 @@ Select the EXE file as an action in the task scheduler, and add “Scheduled” 
 > - Make sure all other Excel files are closed (also not visible ones via the Task Manager must be closed)
 > - Analysis Addin doesn’t load – open File manually refresh a query and save file.
 > - Never click into the command window of the tool, this will stop the code execution.
+> - Manual changes or additions to the configuration files are error prone, in case of errors create a new configuration and merge files manually if error persists
 > - Use clean files (No old and unused queries, queries without crosstab etc.)
 > - When the tool cannot open files it is possible that there are hyperlinks on the paths in the configuration file – remove those hyperlinks. Another reason is that you are using paths copied from your browser; this usually does not work, e.g., the filename must end with a valid file extension like .xlsx and not with any other parts from the URL.
 > - Errors 2147023174 “The RPC server is unavailable” & 2147023170 “The remote procedure call failed” no solution yet – usually works after a couple of minutes after the error.
